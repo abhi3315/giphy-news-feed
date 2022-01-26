@@ -1,24 +1,53 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import AuthRouter from "./components/AuthRouter";
+import { useDispatch } from "react-redux";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { Spin } from "antd";
+import { setUser, removeUser } from "./redux/user";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
 import Header from "./components/Header";
-import store from "./redux/store";
 import "antd/dist/antd.css";
 import "./App.css";
 
 function App() {
-	return (
-		<Provider store={store}>
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const [loading, setLoading] = React.useState(false);
+
+	React.useEffect(() => {
+		setLoading(true);
+		(async () => {
+			try {
+				const serverBaseRoute = process.env.REACT_APP_SERVER_ROUTE;
+				const authToken = localStorage.getItem("authToken");
+
+				if (!authToken) throw new Error();
+
+				const res = await fetch(`${serverBaseRoute}/verify/${authToken}`);
+
+				if (!res.ok) throw new Error("Unable to verify token");
+
+				const data = await res.json();
+				dispatch(setUser({ payload: data }));
+				navigate("/");
+			} catch (e) {
+				navigate("/login", { replace: true });
+				dispatch(removeUser());
+			}
+			setLoading(false);
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	return !loading ? (
+		<>
 			<Header />
-			<Router>
-				<Routes>
-					<Route path="/login" element={<Login />} />
-				</Routes>
-			</Router>
-		</Provider>
+			<Routes>
+				<Route path="/" element={<p>aaa</p>} />
+				<Route path="/login" element={<Login />} />
+			</Routes>
+		</>
+	) : (
+		<Spin size="large" />
 	);
 }
 
