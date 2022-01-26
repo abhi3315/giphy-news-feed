@@ -1,31 +1,44 @@
-import React from 'react';
-import { useGoogleLogout } from 'react-google-login';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Button, Tooltip, message } from "antd";
+import { LogoutOutlined } from "@ant-design/icons";
+import { useGoogleLogout } from "react-google-login";
+import { removeUser } from "../redux/user";
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
-function LogoutHooks() {
-    const onLogoutSuccess = (res) => {
-        console.log('Logged out Success');
-        alert('Logged out Successfully ✌');
-    };
+const Logout = () => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-    const onFailure = () => {
-        console.log('Handle failure cases');
-    };
+	const onLogoutSuccess = (res) => {
+		message.success({ content: "Logged out successfully!" });
+		localStorage.removeItem("authToken");
+		dispatch(removeUser());
+		navigate("/login");
+	};
 
-    const { signOut } = useGoogleLogout({
-        clientId,
-        onLogoutSuccess,
-        onFailure,
-    });
+	const onFailure = () => {
+		message.success({ content: "Unable to logout. Please try again later!" });
+	};
 
-    return (
-        <button onClick={signOut} className="button">
-            <img src="icons/google.svg" alt="google login" className="icon"></img>
+	const { signOut } = useGoogleLogout({
+		clientId,
+		onLogoutSuccess,
+		onFailure,
+	});
 
-            <span className="buttonText">Sign out</span>
-        </button>
-    );
-}
+	return (
+		<Tooltip placement="bottom" title="Logout">
+			<Button
+				type="primary"
+				shape="circle"
+				onClick={signOut}
+				icon={<LogoutOutlined />}
+			/>
+		</Tooltip>
+	);
+};
 
-export default LogoutHooks;
+export default Logout;

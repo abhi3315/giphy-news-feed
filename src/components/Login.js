@@ -9,7 +9,7 @@ import { refreshTokenSetup } from "../utils/auth";
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
-function Login() {
+const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -24,7 +24,6 @@ function Login() {
 	};
 
 	const onFailure = (res) => {
-		console.log(res);
 		setError(res?.details || "Unable to login. Try again later!");
 		dispatch(removeUser());
 	};
@@ -52,6 +51,6 @@ function Login() {
 			</Col>
 		</Row>
 	);
-}
+};
 
 export default Login;

@@ -8,6 +8,11 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
+.nav-btn-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
 .login-btn {
 	margin: 20px auto;
 	display: block;
