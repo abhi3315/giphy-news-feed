@@ -11,7 +11,7 @@ import "./App.css";
 function App() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [loading, setLoading] = React.useState(false);
+	const [loading, setLoading] = React.useState(true);
 
 	React.useEffect(() => {
 		setLoading(true);
@@ -47,7 +47,9 @@ function App() {
 			</Routes>
 		</>
 	) : (
-		<Spin size="large" />
+		<div className="loader-container">
+			<Spin size="large" />
+		</div>
 	);
 }
 
