@@ -32,6 +32,10 @@ code {
 	display: block;
 }
 
+.d-block {
+	display: block;
+}
+
 .w-100 {
 	width: 100%;
 }
@@ -50,6 +54,10 @@ code {
 
 .p-32 {
 	padding: 32;
+}
+
+.m-auto {
+	margin: auto !important;
 }
 
 .mr-10 {
