@@ -36,6 +36,10 @@ code {
 	width: 100%;
 }
 
+.w-300px {
+	width: 300px;
+}
+
 .h-100 {
 	height: 100%;
 }
@@ -48,9 +52,32 @@ code {
 	padding: 32;
 }
 
+.mr-10 {
+	margin-right: 10px;
+}
+
+.mb-10 {
+	margin-bottom: 10px;
+}
+
+.text-area {
+	height: 100px;
+}
+
 .loader-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+}
+
+.img-label {
+	height: auto;
+	width: auto;
+}
+
+.gif-container {
+	height: 180px;
+	width: 350px;
+	overflow-y: scroll;
 }

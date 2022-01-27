@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { Spin } from "antd";
+import { Spin, message } from "antd";
 import { setUser, removeUser } from "./redux/user";
 import Login from "./components/Login";
 import Header from "./components/Header";
@@ -20,16 +20,17 @@ function App() {
 				const serverBaseRoute = process.env.REACT_APP_SERVER_ROUTE;
 				const authToken = localStorage.getItem("authToken");
 
-				if (!authToken) throw new Error();
+				if (!authToken) return setLoading(false);
 
 				const res = await fetch(`${serverBaseRoute}/verify/${authToken}`);
 
 				if (!res.ok) throw new Error("Unable to verify token");
 
 				const data = await res.json();
-				dispatch(setUser({ payload: data }));
+				dispatch(setUser(data.payload));
 				navigate("/");
 			} catch (e) {
+				message.warning({ content: "Session expired. Please login again." });
 				navigate("/login", { replace: true });
 				dispatch(removeUser());
 			}
