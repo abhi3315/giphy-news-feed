@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { Modal, Input, Popover, Button } from "antd";
 import Giphy from "./Giphy";
@@ -57,6 +58,11 @@ const NewPost = ({ toggleModel, isOpen }) => {
 			/>
 		</Modal>
 	);
+};
+
+NewPost.propTypes = {
+	toggleModel: PropTypes.func.isRequired,
+	isOpen: PropTypes.bool,
 };
 
 export default NewPost;

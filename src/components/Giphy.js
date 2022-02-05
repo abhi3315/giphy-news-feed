@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Radio, Input, Row, Col, Button, Spin, message } from "antd";
 import { getGifs } from "../utils/giphy";
 import { debouncer } from "../utils/debouncer";
@@ -110,6 +111,11 @@ const Giphy = ({ selectGif, selectedGifId }) => {
 			</Radio.Group>
 		</>
 	);
+};
+
+Giphy.propTypes = {
+	selectGif: PropTypes.func.isRequired,
+	selectedGif: PropTypes.string,
 };
 
 export default Giphy;
