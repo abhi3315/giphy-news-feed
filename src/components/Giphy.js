@@ -13,6 +13,8 @@ const Giphy = () => {
 
 	React.useEffect(() => {
 		(async () => {
+			if (loading) return;
+
 			setLoading(true);
 			try {
 				const limit = 10;
@@ -24,11 +26,13 @@ const Giphy = () => {
 			setLoading(false);
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [offset, search]);
+	}, [offset]);
 
 	const handleObserver = React.useCallback((entries) => {
+		if (loading) return;
+
 		const target = entries[0];
-		if (target.isIntersecting && !loading) {
+		if (target.isIntersecting) {
 			setOffset((prev) => prev + 10);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,8 +50,9 @@ const Giphy = () => {
 
 	const handleSearch = (e) => {
 		const { value } = e.target;
-		setSearch(value);
 		setGifs([]);
+		setSearch(value);
+		setOffset(0);
 	};
 
 	return (

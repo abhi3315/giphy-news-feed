@@ -7,7 +7,7 @@ const NewPost = ({ toggleModel, isOpen }) => {
 
 	return (
 		<Modal
-			title="20px to Top"
+			title="Giphyfy Your Thoughts!"
 			style={{ top: 20 }}
 			visible={isOpen}
 			onOk={toggleModel}
