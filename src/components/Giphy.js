@@ -3,11 +3,12 @@ import { Radio, Input, Row, Col, Button, Spin, message } from "antd";
 import { getGifs } from "../utils/giphy";
 import { debouncer } from "../utils/debouncer";
 
-const Giphy = () => {
+const Giphy = ({ selectGif, selectedGifId }) => {
 	const [gifs, setGifs] = React.useState([]);
 	const [loading, setLoading] = React.useState(false);
 	const [search, setSearch] = React.useState("");
 	const [offset, setOffset] = React.useState(0);
+	const [gifId, setGifId] = React.useState(selectedGifId);
 
 	const loaderRef = React.useRef();
 
@@ -55,9 +56,18 @@ const Giphy = () => {
 		setOffset(0);
 	};
 
+	const handleGifChange = ({ target }) => setGifId(target.value);
+
+	const handleSelectGif = () => selectGif(gifId);
+
 	return (
 		<>
-			<Radio.Group optionType="button" buttonStyle="solid">
+			<Radio.Group
+				optionType="button"
+				buttonStyle="solid"
+				onChange={handleGifChange}
+				value={gifId}
+			>
 				<div className="gif-container mb-10">
 					<Row gutter={16} className="w-300px m-auto">
 						{gifs.map(({ id }) => (
@@ -88,7 +98,13 @@ const Giphy = () => {
 						/>
 					</Col>
 					<Col span={8}>
-						<Button className="width100">Select GIF</Button>
+						<Button
+							disabled={!gifId}
+							onClick={handleSelectGif}
+							className="width100"
+						>
+							Select GIF
+						</Button>
 					</Col>
 				</Row>
 			</Radio.Group>

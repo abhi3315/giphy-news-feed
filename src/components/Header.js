@@ -6,12 +6,12 @@ import { ShareAltOutlined } from "@ant-design/icons";
 import NewPost from "./NewPost";
 import Logout from "./Logout";
 
+const { Title } = Typography;
+
 const Header = () => {
 	const userDetails = useSelector((state) => state.user?.details);
 
 	const [showModel, setShowModel] = React.useState(false);
-
-	const { Title } = Typography;
 
 	const toggleModel = () => setShowModel(!showModel);
 

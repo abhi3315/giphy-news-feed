@@ -1,9 +1,25 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Modal, Input, Popover, Button } from "antd";
 import Giphy from "./Giphy";
+import { prependPost } from "../redux/post";
+
+const { TextArea } = Input;
 
 const NewPost = ({ toggleModel, isOpen }) => {
-	const { TextArea } = Input;
+	const dispatch = useDispatch();
+
+	const [message, setMessage] = React.useState("");
+	const [gif, setGif] = React.useState(null);
+
+	const handleMessageChange = ({ target }) => setMessage(target.value || "");
+
+	const handleAddPost = () => {
+		dispatch(prependPost({ message, gif, date: new Date().toDateString() }));
+		setMessage("");
+		setGif(null);
+		toggleModel();
+	};
 
 	return (
 		<Modal
@@ -18,16 +34,27 @@ const NewPost = ({ toggleModel, isOpen }) => {
 					title="Select Gif"
 					trigger="click"
 					key="gif"
-					content={<Giphy />}
+					content={<Giphy selectedGifId={gif} selectGif={setGif} />}
 				>
 					<Button>Select Gif</Button>
 				</Popover>,
-				<Button key="submit" type="primary">
+				<Button
+					disabled={!message}
+					onClick={handleAddPost}
+					key="submit"
+					type="primary"
+				>
 					Add Post
 				</Button>,
 			]}
 		>
-			<TextArea className="text-area" showCount maxLength={500} />
+			<TextArea
+				className="text-area"
+				value={message}
+				onChange={handleMessageChange}
+				showCount
+				maxLength={500}
+			/>
 		</Modal>
 	);
 };

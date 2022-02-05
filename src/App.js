@@ -3,8 +3,10 @@ import { useDispatch } from "react-redux";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Spin, message } from "antd";
 import { setUser, removeUser } from "./redux/user";
+import { getPosts } from "./redux/post";
 import Login from "./components/Login";
 import Header from "./components/Header";
+import ListPosts from "./components/ListPosts";
 import "antd/dist/antd.css";
 import "./App.css";
 
@@ -17,6 +19,7 @@ function App() {
 		setLoading(true);
 		(async () => {
 			try {
+				dispatch(getPosts());
 				const serverBaseRoute = process.env.REACT_APP_SERVER_ROUTE;
 				const authToken = localStorage.getItem("authToken");
 
@@ -43,7 +46,7 @@ function App() {
 		<>
 			<Header />
 			<Routes>
-				<Route path="/" element={<p>aaa</p>} />
+				<Route path="/" element={<ListPosts />} />
 				<Route path="/login" element={<Login />} />
 			</Routes>
 		</>

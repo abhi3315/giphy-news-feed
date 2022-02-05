@@ -40,10 +40,6 @@ code {
 	width: 100%;
 }
 
-.w-300px {
-	width: 300px;
-}
-
 .h-100 {
 	height: 100%;
 }
@@ -60,12 +56,20 @@ code {
 	margin: auto !important;
 }
 
+.mt-10 {
+	margin-top: 10px;
+}
+
 .mr-10 {
 	margin-right: 10px;
 }
 
 .mb-10 {
 	margin-bottom: 10px;
+}
+
+.text-center {
+	text-align: center;
 }
 
 .text-area {
@@ -88,4 +92,11 @@ code {
 	height: 180px;
 	width: 350px;
 	overflow-y: scroll;
+}
+
+.post-container {
+	margin: 15px 0;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
