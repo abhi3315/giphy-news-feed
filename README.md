@@ -10,7 +10,7 @@ git clone https://github.com/abhi3315/giphy-news-feed.git
 cd giphy-news-feed
 ```
 
-- Create `.env` file and add the Google Client ID and Giphy API key in it as per the format of `.env.development` file.
+- Add the Google Client ID and Giphy API key in `.env.development` file.
 
 - Install development and run the the server.
 ```
