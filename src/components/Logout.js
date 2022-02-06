@@ -5,6 +5,7 @@ import { Button, Tooltip, message } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useGoogleLogout } from "react-google-login";
 import { removeUser } from "../redux/user";
+import { removePosts } from "../redux/post";
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
@@ -15,6 +16,7 @@ const Logout = () => {
 	const onLogoutSuccess = (res) => {
 		message.success({ content: "Logged out successfully!" });
 		localStorage.removeItem("authToken");
+		dispatch(removePosts());
 		dispatch(removeUser());
 		navigate("/login");
 	};

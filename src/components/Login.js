@@ -4,6 +4,7 @@ import { Button, Row, Col, Alert } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
 import { useGoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
+import { removePosts } from "../redux/post";
 import { setUser, removeUser } from "../redux/user";
 import { refreshTokenSetup } from "../utils/auth";
 
@@ -25,6 +26,7 @@ const Login = () => {
 
 	const onFailure = (res) => {
 		setError(res?.details || "Unable to login. Try again later!");
+		dispatch(removePosts());
 		dispatch(removeUser());
 	};
 

@@ -14,9 +14,13 @@ export const post = createSlice({
 			const posts = JSON.parse(localStorage.getItem("posts")) || [];
 			state.posts = posts;
 		},
+		removePosts: (state) => {
+			state.posts = [];
+			localStorage.removeItem("posts");
+		},
 	},
 });
 
-export const { prependPost, getPosts } = post.actions;
+export const { prependPost, getPosts, removePosts } = post.actions;
 
 export default post.reducer;
